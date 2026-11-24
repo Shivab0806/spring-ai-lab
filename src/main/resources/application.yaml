@@ -2,10 +2,19 @@ spring:
   application:
     name: spring-ai-lab
 
+#  ai:
+#    google:
+#      genai:
+#        api-key: ${GEMINI_API_KEY}
+#        chat:
+#          options:
+#            model: gemini-3-flash-preview
   ai:
-    google:
-      genai:
-        api-key: ${GEMINI_API_KEY}
-        chat:
-          options:
-            model: gemini-3-flash-preview
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        options:
+          model: llama3.1:8b
+
+
+
