@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Component
 public class AIChatServiceFactory {
 
-    private Map<AiProvider, AIChatService> chatServiceMap;
+    private final Map<AiProvider, AIChatService> chatServiceMap;
 
     public AIChatServiceFactory(List<AIChatService> chatServiceList) {
         this.chatServiceMap = chatServiceList.stream().
