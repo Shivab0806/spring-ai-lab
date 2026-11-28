@@ -1,9 +1,9 @@
-package com.springai.controller;
+package com.spring.ai.controller;
 
-import com.springai.dto.ChatRequest;
-import com.springai.enums.AiProvider;
-import com.springai.service.AIMessageRoles;
-import com.springai.service.AIService;
+import com.spring.ai.dto.ChatRequest;
+import com.spring.ai.enums.AiProvider;
+import com.spring.ai.service.AIMessageRoles;
+import com.spring.ai.service.AIService;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,7 +1,7 @@
-package com.springai.service.impl;
+package com.spring.ai.service.impl;
 
-import com.springai.enums.AiProvider;
-import com.springai.service.AIChatService;
+import com.spring.ai.enums.AiProvider;
+import com.spring.ai.service.AIChatService;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
 

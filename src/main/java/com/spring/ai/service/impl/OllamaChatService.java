@@ -1,9 +1,9 @@
-package com.springai.service.impl;
+package com.spring.ai.service.impl;
 
-import com.springai.dto.ChatRequest;
-import com.springai.enums.AiProvider;
-import com.springai.service.AIChatService;
-import com.springai.service.AIMessageRoles;
+import com.spring.ai.dto.ChatRequest;
+import com.spring.ai.enums.AiProvider;
+import com.spring.ai.service.AIChatService;
+import com.spring.ai.service.AIMessageRoles;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;

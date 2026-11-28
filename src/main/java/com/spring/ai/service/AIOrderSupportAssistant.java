@@ -1,4 +1,4 @@
-package com.springai.service;
+package com.spring.ai.service;
 
 public interface AIOrderSupportAssistant {
 

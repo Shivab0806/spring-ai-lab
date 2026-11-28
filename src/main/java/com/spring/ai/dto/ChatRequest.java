@@ -1,4 +1,4 @@
-package com.springai.dto;
+package com.spring.ai.dto;
 
 public record ChatRequest(String message,String modelType) {
 }

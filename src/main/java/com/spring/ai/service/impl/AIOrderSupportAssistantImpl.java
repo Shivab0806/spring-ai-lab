@@ -1,6 +1,6 @@
-package com.springai.service.impl;
+package com.spring.ai.service.impl;
 
-import com.springai.service.AIOrderSupportAssistant;
+import com.spring.ai.service.AIOrderSupportAssistant;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;

@@ -1,6 +1,6 @@
-package com.springai.controller;
+package com.spring.ai.controller;
 
-import com.springai.service.AIOrderSupportAssistant;
+import com.spring.ai.service.AIOrderSupportAssistant;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,7 +1,7 @@
-package com.springai.components;
+package com.spring.ai.components;
 
-import com.springai.enums.AiProvider;
-import com.springai.service.AIChatService;
+import com.spring.ai.enums.AiProvider;
+import com.spring.ai.service.AIChatService;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
