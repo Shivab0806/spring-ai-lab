@@ -14,6 +14,15 @@ spring:
       chat:
         options:
           model: llama3.2:3b
+logging:
+  level:
+    root: INFO
+    org:
+      springframework:
+        ai:
+          chat:
+            client:
+              advisor: DEBUG
 
 
 

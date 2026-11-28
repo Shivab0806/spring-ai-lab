@@ -1,10 +1,15 @@
 package com.spring.ai.service.impl;
 
+import com.spring.ai.adviser.TokenLimitExceededAdvisor;
+import com.spring.ai.exception.OrderNotFoundException;
 import com.spring.ai.service.AIOrderSupportAssistant;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.SafeGuardAdvisor;
+import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -17,31 +22,32 @@ public class AIOrderSupportAssistantImpl implements AIOrderSupportAssistant {
     @Value("classpath:prompts/order_policy_template.st")
     private Resource policyPromptResource;
 
-    private final ChatClient geminiAIChatClient;
+    private final ChatClient ollamaChatClient;
 
-    public AIOrderSupportAssistantImpl(ChatClient geminiAIChatClient) {
-        this.geminiAIChatClient = geminiAIChatClient;
+    public AIOrderSupportAssistantImpl(ChatClient ollamaChatClient) {
+        this.ollamaChatClient = ollamaChatClient;
     }
 
     @Override
-    public String assist(String customerName, String orderId, String issueDescription) throws Exception {
+    public Flux<String> assist(String customerName, String orderId, String issueDescription) throws Exception {
 
         OrderEntity order = getOrderDetails(orderId, customerName);
 
-        return geminiAIChatClient.prompt().
+        return ollamaChatClient.prompt().
+                advisors(List.of(new SimpleLoggerAdvisor(),
+                        new SafeGuardAdvisor(List.of("opt", "cvv", "password","200 characters"), "Please do not share sensitive information.", 1)
+                        , new TokenLimitExceededAdvisor())).
                 system(systemPromptResource).
                 system(policyPromptResource).
                 user("""
-                        Customer Name: %s
-                        Order ID: %s
-                        Issue Description: %s
-                        - Delivery Date: %s
-                        - Order Status: %s
-                       """.formatted(order.customerName(), order.orderId(), issueDescription,order.deliveryDate(),order.orderStatus()))
-                .call()
-                .content();
+                         Customer Name: %s
+                         Order ID: %s
+                         Issue Description: %s
+                         - Delivery Date: %s
+                         - Order Status: %s
+                        """.formatted(order.customerName(), order.orderId(), issueDescription, order.deliveryDate(), order.orderStatus()))
+                .stream().content();
     }
-
 
 
     private record OrderEntity(String orderId, String customerName, String orderStatus, String deliveryDate) {
@@ -60,7 +66,7 @@ public class AIOrderSupportAssistantImpl implements AIOrderSupportAssistant {
         return orders.stream()
                 .filter(order -> order.orderId().equals(orderId) && order.customerName().equals(customerName))
                 .findFirst()
-                .orElseThrow(() -> new Exception(("Order not found")));
+                .orElseThrow(() -> new OrderNotFoundException("Order not found"+" for Order ID: " + orderId + " and Customer Name: " + customerName));
 
     }
 }
